@@ -2,12 +2,13 @@ import Image from 'next/image'
 
 
 
-const Imagenes = ({ link, onClick }) => (
+const Imagenes = ({ link, onClick, style, className }) => (
     <Image
       width={50}
       height={100}
-      style={{ height:'50px'}}
+      style={style}
       onClick={onClick}
+      className={className}
       alt="The guitarist in the concert."
       src= {link}            
     />
