@@ -8,8 +8,7 @@ body {
   padding: 0;
   margin: 0;
   font-size: 3vh;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Caprasimo', cursive;
 }
 
 
@@ -56,6 +55,16 @@ a {
   border-radius: 50%;
   background: #04AA6D;
   cursor: pointer;
+}
+
+
+
+.scrollVertical{
+  overflow: scroll; 
+}
+
+.scrollVertical::-webkit-scrollbar {
+  width: 0; /* Ocultar la barra de desplazamiento en navegadores basados en WebKit (Chrome, Safari) */
 }
 
 .efectoGirar {

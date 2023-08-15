@@ -69,6 +69,7 @@ let coor = 0
 function usarAudio(i, d){
     console.log(`${i} ${d}`)
     let audio = document.getElementById('audioRep')
+    let contenedorAudios = document.getElementById('contenedorAudios')
     if(i == 'pause'){
         audio.pause()
     } else if(i == 'play'){
@@ -96,6 +97,11 @@ function usarAudio(i, d){
         console.log(coor);
         audio.src = arreAudiosPadre[coor].linkAudio
         audio.play()
+        console.log(arreAudiosPadre[coor].imagenAudio);
+
+        contenedorAudios.style.backgroundImage = `url(${arreAudiosPadre[coor].imagenAudio})`
+        contenedorAudios.style.backgroundRepeat = 'no-repeat';
+        contenedorAudios.style.backgroundSize = 'cover';
     }
 
     setInterval(subir, 1000)// buscar pararlo y reinicralo cada vez que paro o cambio
@@ -106,19 +112,19 @@ function actualizarColorFondo(i){
     for (let u = 0; u < arreAudiosPadre.length; u++) {
         document.getElementById(`secAudio${u}`).style.background = '#264439'
     }
-    document.getElementById(`secAudio${i}`).style.background = 'gray'
+    document.getElementById(`secAudio${i}`).style.background = '#00000052'
 }
 
 function usarReproductorAudio(){
     const styleImages = {height: '10vh', width: '10vh'}
 
     return(
-            <div style={{ width: "100%", height: '85vh', overflow: 'scroll', whiteSpace: 'nowrap', background: "#264439", padding: "20px" }}>
+            <div id='contenedorAudios' style={{ width: "100%", height: '85vh', background: "#264439", padding: "20px" }} className='scrollVertical'>
                 {arreAudiosPadre.map((item, index) => (
                     <div id={`secAudio${index}`} onClick={() => usarAudio(index, index)} key={index} style={{ width: "100%", height: '15vh', borderRadius: '0.5em', padding: '20px', marginBottom:'20px' }} className='efectoFondoTransparente'>
                         <div style={{display: "flex"}}>
                             <Imagenes link={item.imagenAudio} style={styleImages} className={'efectoGirar'}/>
-                            <div style={{ marginLeft: '20px' }}>
+                            <div style={{ marginLeft: '20px', height: '13vh', width: '90vw' }} className='scrollVertical'>
                                 <h2>{item.titulo}</h2>
                                 <h3>{item.contenido}</h3>
                             </div>
