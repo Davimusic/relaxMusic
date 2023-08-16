@@ -26,11 +26,11 @@ a {
 .slider {
   -webkit-appearance: none;
   width: 90%;
-  height: 5px;
+  height: 1vh;
   border-radius: 5px;
-  background: #d3d3d3;
+  background: #06ec98;
   outline: none;
-  opacity: 0.7;
+  opacity: 0.5;
   -webkit-transition: .2s;
   transition: opacity .2s;
 }
@@ -42,16 +42,16 @@ a {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 12px;
+  height: 3vh;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #06ec98;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
+  width: 12px;
+  height: 3vh;
   border-radius: 50%;
   background: #04AA6D;
   cursor: pointer;
@@ -100,4 +100,38 @@ a {
 .espacioEquilatero{
   justify-content: space-around;
 }
+
+ul.menu {
+  list-style: none;
+  padding: 0;
+  background-color: #333;
+  text-align: center;
+}
+
+ul.menu li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+ul.menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+ul.menu li a:hover {
+  background-color: #555;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px; /* Ajusta la altura según tus necesidades */
+}
+
+
+
 

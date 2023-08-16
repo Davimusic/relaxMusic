@@ -17,6 +17,7 @@ const RangeInput = ({id}) => {
         id={id}
         value={value}
         className="slider"
+        style={{}}
         onChange={(e) => reubicar(e.target.value)}
         />
     );
