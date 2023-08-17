@@ -135,6 +135,7 @@ ul.menu li a:hover {
 
 
 .pendulo {
+  color: #083fa78f;
   position: absolute;
   animation: moveRightLeft 5s linear infinite; /* Ajusta la duración y el nombre de la animación según tu preferencia */
 }
