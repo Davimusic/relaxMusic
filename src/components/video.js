@@ -1,6 +1,8 @@
 "use client"
 import Imagenes from './Img';
 import RangeInput from './InputRange'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -27,27 +29,27 @@ let arreAudiosPadre =  [{ linkAudio:'https://res.cloudinary.com/dplncudbq/video/
                             contenido: 'contenido'
                     }]
 
-
-function saludar(e){
-    console.log(e);
-    document.getElementById('inputRangeA').value = e
-    console.log(document.getElementById('inputRangeA').value);
-}
-
-
 function subir(){
     let audio = document.getElementById('audioRep')
     //console.log(audio.currentTime)
     document.getElementById('input').value=audio.currentTime
 }
 
+function audioToast(mensaje){
+    toast.success(mensaje, {
+        position: toast.POSITION.TOP_RIGHT
+    });
+}
 
 export function Video(){
 
 const styleImages = {marginLeft: '20px', height: '6vh', width: '6vh'}   
 
+
+
     return(
         <div>
+            <ToastContainer />
             <div style={{display: 'flex'}}>
                 <div style={{width: '40vh', padding: '10px', background: 'blue'}}>
                     <ul className="container">
@@ -64,11 +66,11 @@ const styleImages = {marginLeft: '20px', height: '6vh', width: '6vh'}
                     <RangeInput id='input'/>
                 </div>         
                 <div style={{display: "flex", height: 'min-content', margin: '1vh'}} className='espacioEquilatero'>
-                    <Imagenes  onClick={() => usarAudio('adelante')} className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1676133410/mias/adelante_ztqvpx.png' />
-                    <Imagenes  onClick={() => usarAudio('play')} id='play'    className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1656171086/mias/play_qqpavo.png' />
-                    <Imagenes  onClick={() => usarAudio('atras')}    className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1676133407/mias/atras_lfyntg.png' />
-                    <Imagenes  onClick={() => usarAudio('aleatorio')}    className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1692146284/ale_tkcekv.jpg' />
-                    <Imagenes  onClick={() => usarAudio('repetir')}    className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1692146284/repe_odo27o.png' />
+                    <Imagenes  onClick={() => usarAudio('adelante', 0)}  id='botonRepro0'  className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1676133410/mias/adelante_ztqvpx.png' />
+                    <Imagenes  onClick={() => usarAudio('play', 1)}      id='botonRepro1'  className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1656171086/mias/play_qqpavo.png' />
+                    <Imagenes  onClick={() => usarAudio('atras', 2)}     id='botonRepro2'  className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1676133407/mias/atras_lfyntg.png' />
+                    <Imagenes  onClick={() => usarAudio('aleatorio', 3)} id='botonRepro3'  className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1692223038/mias/alea_awok3b.png' />
+                    <Imagenes  onClick={() => usarAudio('repetir', 4)}   id='botonRepro4'  className={'efectoFondoColor'} style={styleImages} link='https://res.cloudinary.com/dplncudbq/image/upload/v1692223037/mias/re_oyr9yt.png' />
                     <audio id='audioRep' preload = "metadata" controls   style={{display: 'none'}}>
                         Your browser does not support the <code>audio</code> element.
                     </audio>
@@ -78,11 +80,11 @@ const styleImages = {marginLeft: '20px', height: '6vh', width: '6vh'}
     )
 }
 
-let coor = 0, reproducir = 'no', intervaloSubir
+let coor = 0, reproducir = 'no', intervaloSubir, estado = 'audioActual'
 function usarAudio(i, d) {
     const audio = document.getElementById('audioRep');
     //const contenedorAudios = document.getElementById('contenedorAudios');
-    const botonPlay = document.getElementById('play');
+    const botonPlay = document.getElementById('botonRepro1');
 
     if (i === 'play') {
         if (audio.src === '') {
@@ -103,7 +105,7 @@ function usarAudio(i, d) {
         console.log(coor);
         reproducirAudio(coor);
     } else if (i === 'aleatorio' || i === 'repetir') {
-        alert(i);
+        estado = i
     } else {
         coor = i;
         reproducirAudio(coor);
@@ -115,20 +117,30 @@ function usarAudio(i, d) {
 
     clearInterval(intervaloSubir); // Detener el intervalo anterior
     intervaloSubir = setInterval(subir, 1000); // Crear un nuevo intervalo
-    actualizarColorFondo(coor);
+    actualizarColorFondo('secAudio', coor, '#00000052', '#264439', arreAudiosPadre.length);
+    actualizarColorFondo('botonRepro', d, '#06ec98', '#ffffff', 5)
 
+    function onAudioEnded() {
+        //const audio = document.getElementById('audioRep');
+        if(estado == 'audioActual'){
+            
+        } else if(estado == 'repetir'){
+            usarAudio(coor)
+        } else if(estado == 'aleatorio'){
+            let numAle = Math.round(Math.random() * ((arreAudiosPadre.length - 1) - 0));
+            usarAudio(numAle)
+        }
+        audio.removeEventListener('ended', onAudioEnded); // Eliminar el oyente
+    }
+    audio.addEventListener('ended', onAudioEnded);
 
-    // para cuando acabe el audio
-    audio.addEventListener('ended', function() {
-        usarAudio('adelante')
-    });
+    audioToast(i)
 }
-
 
 function reproducirAudio(coor) {
     const audio = document.getElementById('audioRep');
     const contenedorAudios = document.getElementById('contenedorAudios');
-    const botonPlay = document.getElementById('play');
+    const botonPlay = document.getElementById('botonRepro1');
 
     audio.src = arreAudiosPadre[coor].linkAudio;
     contenedorAudios.style.backgroundImage = `url(${arreAudiosPadre[coor].imagenAudio})`;
@@ -141,11 +153,11 @@ function reproducirAudio(coor) {
     botonPlay.srcset = 'https://res.cloudinary.com/dplncudbq/image/upload/v1656171086/mias/pause_vae5ou.png';
 }
 
-function actualizarColorFondo(i){
-    for (let u = 0; u < arreAudiosPadre.length; u++) {
-        document.getElementById(`secAudio${u}`).style.background = '#00000052'
+function actualizarColorFondo(contidoId, id, colorResaltar, colorGeneral, largoArreglo){
+    for (let u = 0; u < largoArreglo; u++) {
+        document.getElementById(`${contidoId}${u}`).style.background = colorGeneral
     }
-    document.getElementById(`secAudio${i}`).style.background = '#264439'
+    document.getElementById(`${contidoId}${id}`).style.background = colorResaltar
 }
 
 function usarReproductorAudio(){
