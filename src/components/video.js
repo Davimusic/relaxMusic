@@ -117,7 +117,7 @@ function usarAudio(i, d) {
 
     clearInterval(intervaloSubir); // Detener el intervalo anterior
     intervaloSubir = setInterval(subir, 1000); // Crear un nuevo intervalo
-    actualizarColorFondo('secAudio', coor, '#00000052', '#264439', arreAudiosPadre.length);
+    actualizarColorFondo('secAudio', coor, '#00000052', '#083fa78f', arreAudiosPadre.length);
     actualizarColorFondo('botonRepro', d, '#06ec98', '#ffffff', 5)
 
     function onAudioEnded() {
@@ -178,5 +178,4 @@ function usarReproductorAudio(){
                 ))}
             </div>
         );
-
 }
