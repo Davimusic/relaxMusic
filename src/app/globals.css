@@ -134,4 +134,21 @@ ul.menu li a:hover {
 
 
 
+.pendulo {
+  position: absolute;
+  animation: moveRightLeft 5s linear infinite; /* Ajusta la duración y el nombre de la animación según tu preferencia */
+}
+
+@keyframes moveRightLeft {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: calc(100% - 100px); /* Ajusta el valor según el ancho de la imagen */
+  }
+  100% {
+    left: 0;
+  }
+}
+
 
