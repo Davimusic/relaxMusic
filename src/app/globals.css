@@ -11,6 +11,14 @@ body {
   font-family: 'Caprasimo', cursive;
 }
 
+.color1{
+  background: black;
+}
+
+.colorLetra1{
+  color: white;
+}
+
 
 
 a {
@@ -101,6 +109,8 @@ a {
   justify-content: space-around;
 }
 
+
+
 ul.menu {
   list-style: none;
   padding: 0;
@@ -135,7 +145,6 @@ ul.menu li a:hover {
 
 
 .pendulo {
-  color: #083fa78f;
   position: absolute;
   animation: moveRightLeft 5s linear infinite; /* Ajusta la duración y el nombre de la animación según tu preferencia */
 }
@@ -151,5 +160,17 @@ ul.menu li a:hover {
     left: 0;
   }
 }
+
+
+.mirar{
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .mirar {
+    display: none;
+  }
+}
+
 
 
